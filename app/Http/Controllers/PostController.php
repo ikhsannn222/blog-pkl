@@ -41,15 +41,21 @@ class PostController extends Controller
      */
     public function show(string $id)
     {
-        echo "Halaman Detail dari Post. ID: $id";
-    }
+        $posts = Storage::get('posts.txt');
+        $posts = explode("\n", $posts);
+        $selected_post = Array();
+        foreach($posts as $post) {
+            $post = explode(",", $post);
+            if($post[0] == $id) {
+                $selected_post = $post;
+            }
+        }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
+        $view_data = [
+            'post' => $selected_post
+        ];
+
+        return view('posts.show', $view_data);
     }
 
     /**
