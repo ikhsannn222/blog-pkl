@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Blog | Judul: {{ $post[0] }} </title>
+    <title>Blog | Judul: {{ $post[1] }} </title>
      {{-- css --}}
     <link href="{{ asset ('bootstrap-5/css/bootstrap.min.css') }}" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="{{ asset ('css/blog.css') }}" rel="stylesheet" crossorigin="anonymous">
@@ -19,6 +19,7 @@
 
             <p>{{ $post[2] }}</p>
           </article>
+          <a href="{{ url("posts") }}">< Kembali</a>
     </div>
 </body>
 </html>
