@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+
 
 class PostController extends Controller
 {
@@ -13,9 +16,11 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = DB::table('posts')
-                    ->select('id','title','content','created_at')
-                    ->get();
+        if(!Auth::check()) {
+            return redirect('login');
+        }
+
+        $post = Post::active()->get();
         $view_data = [
           'posts' => $posts,
         ];
@@ -27,6 +32,9 @@ class PostController extends Controller
      */
     public function create()
     {
+        if(!Auth::check()) {
+            return redirect('login');
+        }
         return view('posts.create');
     }
 
@@ -35,6 +43,9 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        if(!Auth::check()) {
+            return redirect('login');
+        }
         $title = $request->input('title');
         $content = $request->input('content');
 
@@ -53,6 +64,9 @@ class PostController extends Controller
      */
     public function show(string $id)
     {
+        if(!Auth::check()) {
+            return redirect('login');
+        }
        $post = DB::table('posts')
                     ->select('id','title','content','created_at')
                     ->where('id','=', $id)
@@ -68,6 +82,9 @@ class PostController extends Controller
 
     public function edit($id)
     {
+        if(!Auth::check()) {
+            return redirect('login');
+        }
        $post = DB::table('posts')
                     ->select('id','title','content','created_at')
                     ->where('id','=', $id)
@@ -85,6 +102,9 @@ class PostController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        if(!Auth::check()) {
+            return redirect('login');
+        }
         $title = $request->input('title');
         $content = $request->input('content');
 
@@ -104,6 +124,9 @@ class PostController extends Controller
      */
     public function destroy(string $id)
     {
+        if(!Auth::check()) {
+            return redirect('login');
+        }
         DB::table('posts')
             ->where('id', $id)
             ->delete();
