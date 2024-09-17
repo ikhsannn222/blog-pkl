@@ -20,7 +20,7 @@ class PostController extends Controller
             return redirect('login');
         }
 
-        $post = Post::active()->get();
+        $posts = Post::active()->get();
         $view_data = [
           'posts' => $posts,
         ];
@@ -49,7 +49,7 @@ class PostController extends Controller
         $title = $request->input('title');
         $content = $request->input('content');
 
-        DB::table('posts')->insert([
+        Post::insert([
             'title' => $title,
             'content' => $content,
             'created_at' => date('Y-m-d H:i:s'),
@@ -67,10 +67,7 @@ class PostController extends Controller
         if(!Auth::check()) {
             return redirect('login');
         }
-       $post = DB::table('posts')
-                    ->select('id','title','content','created_at')
-                    ->where('id','=', $id)
-                    ->first();
+       $post = Post::where('id','=', $id)->first();
 
         $view_data = [
             'post' => $post
@@ -85,10 +82,7 @@ class PostController extends Controller
         if(!Auth::check()) {
             return redirect('login');
         }
-       $post = DB::table('posts')
-                    ->select('id','title','content','created_at')
-                    ->where('id','=', $id)
-                    ->first();
+       $post = Post::where('id','=', $id)->first();
 
         $view_data = [
             'post' => $post
@@ -108,8 +102,7 @@ class PostController extends Controller
         $title = $request->input('title');
         $content = $request->input('content');
 
-        DB::table('posts')
-            ->where('id', $id)
+        Post::where('id', $id)
             ->update([
                 'title' => $title,
                 'content' => $content,
@@ -127,9 +120,7 @@ class PostController extends Controller
         if(!Auth::check()) {
             return redirect('login');
         }
-        DB::table('posts')
-            ->where('id', $id)
-            ->delete();
+        Post::where('id', $id)->delete();
 
             return redirect('posts');
     }
