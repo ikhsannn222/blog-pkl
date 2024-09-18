@@ -49,9 +49,10 @@ class PostController extends Controller
         $title = $request->input('title');
         $content = $request->input('content');
 
-        Post::insert([
+        Post::create([
             'title' => $title,
             'content' => $content,
+
         ]);
 
         return redirect('posts');

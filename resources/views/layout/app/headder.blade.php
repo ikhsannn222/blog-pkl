@@ -7,9 +7,10 @@
 
         <div class="text-end">
             @if (Auth::check())
-          <a href="{{ url('login') }}" class="btn btn-outline-light me-2">Login</a>
+            <a href="{{ url('logout') }}" class="btn btn-outline-light me-2">logout</a>
           @else
-          <a href="{{ url('logout') }}" class="btn btn-outline-light me-2">logout</a>
+          <a href="{{ url('login') }}" class="btn btn-outline-light me-2">Login</a>
+          <a href="{{ url('register') }}" class="btn btn-outline-light me-2">register</a>
           @endif
         </div>
       </div>
